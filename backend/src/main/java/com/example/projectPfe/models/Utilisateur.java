@@ -37,4 +37,7 @@ public class Utilisateur {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToOne(mappedBy = "user")
+    private  ForgotPassword forgotPassword;
+
 }
