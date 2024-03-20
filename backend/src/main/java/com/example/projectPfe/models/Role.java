@@ -2,14 +2,15 @@ package com.example.projectPfe.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
 @Entity
 @Table(name = "roles")
 public class Role {

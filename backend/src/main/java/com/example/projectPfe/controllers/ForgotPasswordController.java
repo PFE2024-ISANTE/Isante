@@ -1,6 +1,7 @@
 package com.example.projectPfe.controllers;
 
 import com.example.projectPfe.dto.MailBody;
+import com.example.projectPfe.models.ERole;
 import com.example.projectPfe.models.ForgotPassword;
 import com.example.projectPfe.models.Utilisateur;
 import com.example.projectPfe.repositories.ForgotPasswordRepostitory;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -106,5 +108,7 @@ public class ForgotPasswordController {
         return ResponseEntity.ok("Password has been changed !");
 
     }
+
+
 
 }

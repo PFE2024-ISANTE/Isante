@@ -1,16 +1,26 @@
 package com.example.projectPfe.repositories;
 
+import com.example.projectPfe.models.ERole;
 import com.example.projectPfe.models.Utilisateur;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {
 
-    Optional<Utilisateur> findByEmail(String email);
+     Optional<Utilisateur> findByEmail(String email);
+
+    //Optional<Utilisateur> findByUsername(String username);
+
+    @Query("SELECT u FROM Utilisateur u JOIN u.roles r WHERE r.name = :role")
+    List<Utilisateur> findByRoles(@Param("role") ERole role);
+    List<Utilisateur> findByMatricule(String matricule);
+
 
     @Transactional
     @Modifying
