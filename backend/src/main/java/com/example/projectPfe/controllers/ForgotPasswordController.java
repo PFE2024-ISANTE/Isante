@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.context.Context;
+
 
 import java.time.Instant;
 import java.util.Date;
@@ -70,6 +72,37 @@ public class ForgotPasswordController {
 
     }
 
+    @PostMapping("/send-html-email/{email}")
+    public String sendHtmlEmail(@PathVariable String email) {
+        Context context = new Context();
+        Utilisateur user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Veuillez fournir un e-mail valide "));
+
+        int otp= otpGeneratior();
+
+        // Ajoutez la date actuelle au contexte
+        Date currentDate = new Date();
+        context.setVariable("currentDate", currentDate);
+
+        MailBody mailBody = MailBody.builder()
+                .to(email)
+                .text("Ceci est le code OTP pour votre demande de réinitialisation de mot de passe : " + otp)
+                .subject("Code OTP pour la demande de réinitialisation de mot de passe : " + otp)
+                .build();
+
+        ForgotPassword fp = ForgotPassword.builder()
+                .otp(otp)
+                .expirationTime(new Date(System.currentTimeMillis() + 70 * 1000 ))
+                .user(user)
+                .build();
+
+        context.setVariable("name", user.getNom()); // Passer le nom de l'utilisateur au template
+        context.setVariable("otp", otp); // Passer l'OTP au template
+
+        emailService.sendEmailWithHtmlTemplate(mailBody, "email-template", context);
+        return "E-mail HTML envoyé avec succès !";
+    }
+
     private Integer otpGeneratior(){
         Random random = new Random( );
         return random.nextInt(100_000 , 999_999);
@@ -108,6 +141,8 @@ public class ForgotPasswordController {
         return ResponseEntity.ok("Password has been changed !");
 
     }
+
+
 
 
 
