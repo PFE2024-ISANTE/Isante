@@ -1,10 +1,7 @@
 package com.example.projectPfe.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Data
@@ -12,6 +9,8 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Getter
+@Setter
 @Table(name = "roles")
 public class Role {
     @Id
@@ -22,4 +21,6 @@ public class Role {
     @Column(length = 20)
     private ERole name;
 
+    public Role(String roleString) {
+    }
 }
