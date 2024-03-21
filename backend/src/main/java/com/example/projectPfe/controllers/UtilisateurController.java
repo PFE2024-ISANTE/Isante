@@ -1,10 +1,10 @@
 package com.example.projectPfe.controllers;
 
 
+import com.example.projectPfe.Services.UtilisateurService;
 import com.example.projectPfe.models.ERole;
 import com.example.projectPfe.models.Utilisateur;
-import com.example.projectPfe.repositories.UtilisateurRepository;
-import com.example.projectPfe.services.UtilisateurService;
+import com.example.projectPfe.repository.UserRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,12 +14,12 @@ import java.util.List;
 @RequestMapping("/api/utilisateurs")
 public class UtilisateurController {
 
-    private final UtilisateurRepository userRepository ;
+    private final UserRepository userRepository ;
 
     private final UtilisateurService utilisateurService;
 
 
-    public UtilisateurController(UtilisateurRepository userRepository, UtilisateurService utilisateurService) {
+    public UtilisateurController(UserRepository userRepository, UtilisateurService utilisateurService) {
         this.userRepository = userRepository;
         this.utilisateurService = utilisateurService;
     }
@@ -36,7 +36,7 @@ public class UtilisateurController {
     }
 
     @PostMapping("ajouterRole")
-    public void ajouterRoleAUtilisateur(@RequestParam long utilisateurId, @RequestParam ERole role) {
+    public void ajouterRoleAUtilisateur(@RequestParam Integer utilisateurId, @RequestParam ERole role) {
         Utilisateur utilisateur = userRepository.findById(utilisateurId).orElse(null);
         if (utilisateur != null) {
             utilisateurService.affecterRole(utilisateur, role);
@@ -44,7 +44,7 @@ public class UtilisateurController {
     }
 
     @DeleteMapping("/{utilisateurId}/roles/{role}")
-    public void supprimerRoleUtilisateur(@PathVariable long utilisateurId, @PathVariable ERole role) {
+    public void supprimerRoleUtilisateur(@PathVariable Integer utilisateurId, @PathVariable ERole role) {
         Utilisateur utilisateur = userRepository.findById(utilisateurId)
                 .orElseThrow(() -> new UsernameNotFoundException("Aucun utilisateur trouvé avec cet ID : " + utilisateurId));
 

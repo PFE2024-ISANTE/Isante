@@ -1,4 +1,4 @@
-package com.example.projectPfe.repositories;
+package com.example.projectPfe.repository;
 
 import com.example.projectPfe.models.ERole;
 import com.example.projectPfe.models.Role;
@@ -8,9 +8,10 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface RoleRepository extends JpaRepository<Role , Integer> {
-    @Query("SELECT r FROM Role r WHERE r.name = :roleName")
-    Role findByName(@Param("roleName") ERole roleName);
+public interface RoleRepository extends JpaRepository<Role, Integer> {
+    Optional<Role> findByName(ERole name);
 
+    @Query("SELECT r FROM Role r WHERE r.name = :roleName")
+    Role findName(@Param("roleName") ERole roleName);
 
 }

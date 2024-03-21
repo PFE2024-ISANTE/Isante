@@ -1,12 +1,11 @@
 package com.example.projectPfe.controllers;
 
+import com.example.projectPfe.Services.EmailService;
 import com.example.projectPfe.dto.MailBody;
-import com.example.projectPfe.models.ERole;
 import com.example.projectPfe.models.ForgotPassword;
 import com.example.projectPfe.models.Utilisateur;
-import com.example.projectPfe.repositories.ForgotPasswordRepostitory;
-import com.example.projectPfe.repositories.UtilisateurRepository;
-import com.example.projectPfe.services.EmailService;
+import com.example.projectPfe.repository.ForgotPasswordRepostitory;
+import com.example.projectPfe.repository.UserRepository;
 import com.example.projectPfe.utils.ChangePassword;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.context.Context;
 
-
 import java.time.Instant;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -26,14 +23,14 @@ import java.util.Random;
 
 public class ForgotPasswordController {
 
-    private final UtilisateurRepository userRepository ;
+    private final UserRepository userRepository ;
     private final EmailService emailService ;
 
     //private fianl PasswordE
 
     private final ForgotPasswordRepostitory forgotPasswordRepostitory ;
 
-    public ForgotPasswordController(UtilisateurRepository userRepository, EmailService emailService, ForgotPasswordRepostitory forgotPasswordRepostitory) {
+    public ForgotPasswordController(UserRepository userRepository, EmailService emailService, ForgotPasswordRepostitory forgotPasswordRepostitory) {
         this.userRepository = userRepository;
         this.emailService = emailService;
         this.forgotPasswordRepostitory = forgotPasswordRepostitory;

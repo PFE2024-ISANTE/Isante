@@ -1,10 +1,10 @@
-package com.example.projectPfe.services;
+package com.example.projectPfe.Services;
 
 import com.example.projectPfe.models.ERole;
 import com.example.projectPfe.models.Role;
 import com.example.projectPfe.models.Utilisateur;
-import com.example.projectPfe.repositories.RoleRepository;
-import com.example.projectPfe.repositories.UtilisateurRepository;
+import com.example.projectPfe.repository.RoleRepository;
+import com.example.projectPfe.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,11 +12,11 @@ import java.util.List;
 @Service
 public class UtilisateurService {
 
-    private final UtilisateurRepository utilisateurRepository ;
+    private final UserRepository utilisateurRepository ;
 
     private final RoleRepository roleRepository;
 
-    public UtilisateurService(UtilisateurRepository utilisateurRepository, RoleRepository roleRepository) {
+    public UtilisateurService(UserRepository utilisateurRepository, RoleRepository roleRepository) {
         this.utilisateurRepository = utilisateurRepository;
         this.roleRepository = roleRepository;
     }
@@ -32,7 +32,7 @@ public class UtilisateurService {
     }
 
     public void affecterRole(Utilisateur utilisateur, ERole role) {
-        Role roleEntity = roleRepository.findByName(role);
+        Role roleEntity = roleRepository.findName(role);
         if (roleEntity != null) {
             utilisateur.getRoles().add(roleEntity);
             utilisateurRepository.save(utilisateur);
@@ -42,7 +42,7 @@ public class UtilisateurService {
     }
 
     public void limiterRole(Utilisateur utilisateur, ERole role) {
-        Role roleEntity = roleRepository.findByName(role);
+        Role roleEntity = roleRepository.findName(role);
         if (roleEntity != null) {
             utilisateur.getRoles().remove(roleEntity);
             utilisateurRepository.save(utilisateur);

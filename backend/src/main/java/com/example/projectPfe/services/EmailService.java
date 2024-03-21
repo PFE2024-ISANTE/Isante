@@ -1,4 +1,4 @@
-package com.example.projectPfe.services;
+package com.example.projectPfe.Services;
 
 import com.example.projectPfe.dto.MailBody;
 import jakarta.mail.MessagingException;

@@ -1,22 +1,19 @@
 package com.example.projectPfe.models;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 @Entity
-@Getter
 @Table(name = "users",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
@@ -28,7 +25,6 @@ public class Utilisateur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String email;
-
     private String password;
     private String matricule;
     private String nom;
@@ -37,6 +33,7 @@ public class Utilisateur {
     private String tel;
     private String identiteBancaire;
 
+    private boolean active;
 
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -46,6 +43,61 @@ public class Utilisateur {
     private Set<Role> roles = new HashSet<>();
 
 
+    public int getId() {
+        return id;
+    }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getMatricule() {
+        return matricule;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public String getIdentiteBancaire() {
+        return identiteBancaire;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public Utilisateur(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void desactiverCompte() {
+        this.active = false;
+    }
+
+    public void activerCompte() {
+        this.active = true;
+    }
 
 }

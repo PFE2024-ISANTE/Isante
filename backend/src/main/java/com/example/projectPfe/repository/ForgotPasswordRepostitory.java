@@ -1,4 +1,4 @@
-package com.example.projectPfe.repositories;
+package com.example.projectPfe.repository;
 
 import com.example.projectPfe.models.ForgotPassword;
 import com.example.projectPfe.models.Utilisateur;

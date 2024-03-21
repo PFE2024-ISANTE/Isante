@@ -1,4 +1,4 @@
-package com.example.projectPfe.repositories;
+package com.example.projectPfe.repository;
 
 import com.example.projectPfe.models.ERole;
 import com.example.projectPfe.models.Utilisateur;
@@ -11,9 +11,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long> {
 
-     Optional<Utilisateur> findByEmail(String email);
+public interface UserRepository extends JpaRepository<Utilisateur , Integer> {
+
+    Optional<Utilisateur> findByEmail(String email);
 
     //Optional<Utilisateur> findByUsername(String username);
 
