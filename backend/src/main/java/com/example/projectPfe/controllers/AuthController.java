@@ -121,6 +121,18 @@ public class AuthController {
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(dentRole);
                         break;
+                    case "C_Dent":
+                        Role C_DentRole = roleRepository.findByName(ERole.ROLE_DENTIST_CONTROLEUR)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(C_DentRole);
+                        break;
+
+                    case "C_Opt":
+                        Role C_OptRole = roleRepository.findByName(ERole.ROLE_OPTICIEN_CONTROLEUR)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(C_OptRole);
+                        break;
+
 
                     default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_DENTIST)
