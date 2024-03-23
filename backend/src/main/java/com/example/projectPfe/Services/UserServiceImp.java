@@ -11,8 +11,10 @@ import com.example.projectPfe.repository.UtilisateurRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.RoleNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +25,7 @@ public class UserServiceImp implements UserService {
     private final UtilisateurRepository userRepository;
     private final RoleRepository roleRepository;
     private final JavaMailSender emailSender;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Utilisateur ajouterCompte(Utilisateur user , ERole roleName) {
@@ -33,14 +36,25 @@ public class UserServiceImp implements UserService {
         Role role = roleRepository.findByName(ERole.valueOf(String.valueOf(roleName)))
                 .orElseThrow(() -> new UserNotFoundException("Le rôle spécifié n'existe pas."));
         user.getRoles().add(role);
+        user.activerCompte();
         Utilisateur savedUser = userRepository.save(user);
         sendAccountDetailsEmail(savedUser.getEmail(), savedUser.getPassword());
+
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
+
+         savedUser = userRepository.save(user);
+
+
         return savedUser;
     }
 
     public Optional<Utilisateur> findUserById(int userId) {
         return userRepository.findById(userId);
     }
+
+
+
 
     @Override
     public Utilisateur desactiverCompte(int userId) {
