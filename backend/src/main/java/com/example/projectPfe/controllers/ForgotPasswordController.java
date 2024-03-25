@@ -70,7 +70,7 @@ public class ForgotPasswordController {
     }
 
     @PostMapping("/send-html-email/{email}")
-    public String sendHtmlEmail(@PathVariable String email) {
+    public void sendHtmlEmail(@PathVariable String email) {
         Context context = new Context();
         Utilisateur user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Veuillez fournir un e-mail valide "));
@@ -97,7 +97,6 @@ public class ForgotPasswordController {
         context.setVariable("otp", otp); // Passer l'OTP au template
 
         emailService.sendEmailWithHtmlTemplate(mailBody, "email-template", context);
-        return "E-mail HTML envoyé avec succès !";
     }
 
     private Integer otpGeneratior(){
