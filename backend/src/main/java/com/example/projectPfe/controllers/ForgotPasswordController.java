@@ -20,7 +20,7 @@ import java.util.Random;
 
 @RestController
 @RequestMapping("/forgotPassword")
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class ForgotPasswordController {
 
     private final UserRepository userRepository ;

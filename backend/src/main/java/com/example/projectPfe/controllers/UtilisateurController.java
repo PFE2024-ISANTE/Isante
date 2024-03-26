@@ -16,6 +16,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/utilisateurs")
+@CrossOrigin(origins = "*", maxAge = 3600)
+
 public class UtilisateurController {
 
     private final UserRepository userRepository ;
@@ -94,6 +96,12 @@ public class UtilisateurController {
     @GetMapping("/")
     public ResponseEntity<List<Utilisateur>> getAllUsers() {
         List<Utilisateur> users = userService.getAllUsers();
+        return ResponseEntity.status(HttpStatus.OK).body(users);
+    }
+
+    @GetMapping("/Notadmin")
+    public ResponseEntity<List<Utilisateur>> Notadmin() {
+        List<Utilisateur> users = userService.getAllusersNotAdmin();
         return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 

@@ -14,9 +14,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.RoleNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -93,6 +93,15 @@ public class UserServiceImp implements UserService {
     @Override
     public List<Utilisateur> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public List<Utilisateur> getAllusersNotAdmin() {
+        List<Utilisateur> allUsers = userRepository.findAll();
+        // Filtrer les utilisateurs actifs avec un rôle différent de ROLE_ADMIN
+        return allUsers.stream()
+                .filter(user -> user.isActive() && !user.getRoles().contains(ERole.ROLE_ADMIN))
+                .collect(Collectors.toList());
     }
 
 

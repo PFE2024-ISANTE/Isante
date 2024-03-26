@@ -16,6 +16,8 @@ public interface UserService {
     boolean SupprimerUser (int  userId );
      List<Utilisateur> getAllUsers() ;
 
+     List<Utilisateur> getAllusersNotAdmin();
+
      Optional<Utilisateur> findUserById(int userId);
 
 
