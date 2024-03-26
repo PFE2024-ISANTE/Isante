@@ -64,7 +64,7 @@ public class ForgotPasswordController {
         emailService.sendSimpleMessage(mailBody);
         forgotPasswordRepostitory.save(fp);
 
-        return ResponseEntity.ok("Email Sent for verification !");
+        return ResponseEntity.ok("");
 
 
     }
@@ -120,7 +120,7 @@ public class ForgotPasswordController {
 
         }
 
-        return ResponseEntity.ok("OTP Verfied");
+        return ResponseEntity.ok("");
     }
 
     @PostMapping("/changePassword/{email}")
@@ -134,7 +134,7 @@ public class ForgotPasswordController {
         //String encodedPassword = passwordEncoder.encode(changePassword.password());
         userRepository.updatePassword(email, changePassword.password());
 
-        return ResponseEntity.ok("Password has been changed !");
+        return ResponseEntity.ok("");
 
     }
 

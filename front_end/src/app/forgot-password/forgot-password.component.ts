@@ -42,7 +42,7 @@ export class ForgotPasswordComponent implements OnInit {
       // Étape 1 : Envoi de l'email de vérification
       if (this.resetForm.valid) {
         const email = this.resetForm.get('email')!.value;
-        this.forgotPasswordService.sendHtmlEmail(email).subscribe(
+        this.forgotPasswordService.sendVerificationEmail(email).subscribe(
           response => {
             console.log(response);
             this.otpSent = true; // Marquer l'OTP comme envoyé avec succès
@@ -62,12 +62,13 @@ export class ForgotPasswordComponent implements OnInit {
           response => {
             console.log(response);
             this.otpSent = true; // Marquer l'OTP comme envoyé avec succès
+            this.otpVerified = true; // Marquer l'OTP comme vérifié avec succès
           },
           error => {
             console.log(error);
             this.error = 'Erreur lors de l\'envoi de l\'e-mail de vérification';
           }
-        );        // Vous devez également inclure la logique pour vérifier l'OTP avec le service approprié
+        );        
       }
     } else if (step === 'done') {
       // Étape 3 : Changement du mot de passe
@@ -84,7 +85,7 @@ export class ForgotPasswordComponent implements OnInit {
         this.forgotPasswordService.changePassword(email, passwordData).subscribe(
           response => {
             console.log(response);
-            this.passwordChanged = true; // Marquer le mot de passe comme changé avec succès
+            this.passwordChanged = true;
           },
           error => {
             console.log(error);
