@@ -15,6 +15,8 @@ export class ForgotPasswordComponent implements OnInit {
   otpSent: boolean = false; // Indique si le code OTP a été envoyé
   otpVerified: boolean = false; // Indique si le code OTP a été vérifié
   passwordChanged: boolean = false; // Indique si le mot de passe a été changé avec succès
+  emailSending: boolean = false; // Indique si l'email est en cours d'envoi
+
 
   constructor(private formBuilder: FormBuilder, private forgotPasswordService: ForgotPasswordService) {}
 
@@ -42,14 +44,19 @@ export class ForgotPasswordComponent implements OnInit {
       // Étape 1 : Envoi de l'email de vérification
       if (this.resetForm.valid) {
         const email = this.resetForm.get('email')!.value;
+        this.emailSending = true; // Activer l'indicateur de chargement
         this.forgotPasswordService.sendVerificationEmail(email).subscribe(
           response => {
             console.log(response);
             this.otpSent = true; // Marquer l'OTP comme envoyé avec succès
+            this.emailSending = false; // Désactiver l'indicateur de chargement une fois l'email envoyé
+
           },
           error => {
             console.log(error);
             this.error = 'Erreur lors de l\'envoi de l\'e-mail de vérification';
+            this.emailSending = false; // Désactiver l'indicateur de chargement une fois l'email envoyé
+
           }
         );
       }
@@ -68,7 +75,7 @@ export class ForgotPasswordComponent implements OnInit {
             console.log(error);
             this.error = 'Erreur lors de l\'envoi de l\'e-mail de vérification';
           }
-        );        
+        );
       }
     } else if (step === 'done') {
       // Étape 3 : Changement du mot de passe
