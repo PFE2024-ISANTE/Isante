@@ -1,0 +1,95 @@
+
+<!-- <div class="container mt-4">
+  <h2 class="text-center mb-4">liste des ps </h2>
+
+
+  <table class="table align-middle mb-0 bg-white">
+    <thead class="bg-light">
+      <tr>
+        <th>email</th>
+        <th>matricule</th>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th>adresse</th>
+        <th>Telephone</th>
+        <th>role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let professionnel of ps">
+        <td>{{ professionnel.email }}</td>
+        <td>{{ professionnel.matricule }}</td>
+        <td>{{ professionnel.nom }}</td>
+        <td>{{ professionnel.prenom }}</td>
+        <td>{{ professionnel.adresse }}</td>
+        <td>{{ professionnel.tel }}</td>
+        <td>{{ professionnel.roles }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="viewOrders(adherant._id)">voir liste des ordonnances </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+<!-- <head>
+  <meta charset="utf-8">
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css"
+  rel="stylesheet"
+/>
+
+
+
+</head> -->
+
+<div class="table-responsive">
+  <h2 class="text-center mb-4">Liste des professionnels de santé</h2>
+  <table class="table table-bordered table-striped align-middle">
+    <thead class="bg-light">
+      <tr>
+        <th scope="col">Email</th>
+        <th scope="col">Matricule</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Prénom</th>
+        <th scope="col">Adresse</th>
+        <th scope="col">Téléphone</th>
+        <th scope="col">Rôle(s)</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let professionnel of ps">
+        <tr *ngIf="!hasRoleAdmin(professionnel)">
+          <td>{{ professionnel.email }}</td>
+          <td>{{ professionnel.matricule }}</td>
+          <td>{{ professionnel.nom }}</td>
+          <td>{{ professionnel.prenom }}</td>
+          <td>{{ professionnel.adresse }}</td>
+          <td>{{ professionnel.tel }}</td>
+          <td>
+            <ul class="list-unstyled">
+              <li *ngFor="let role of professionnel.roles">
+                <span class="badge bg-primary">{{ role.name }}</span>
+              </li>
+            </ul>
+          </td>
+          <td>
+            <!-- Add action buttons here -->
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
+
